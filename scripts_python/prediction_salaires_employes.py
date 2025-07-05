@@ -1,3 +1,16 @@
+
+# =====================================================================================
+# 📊 SCRIPT : Analyse et Prédiction des Salaires des Employés
+# 🎯 OBJECTIF : 
+#     - Se connecter à la base de données RH MySQL 🗄️
+#     - Extraire et analyser les données des employés 👥
+#     - Calculer des statistiques sur les salaires 💰 et l'ancienneté ⏳
+#     - Utiliser des modèles de machine learning 🤖 (régression linéaire, RandomForest, SVM)
+#       pour prédire les salaires et classifier les hauts salaires 📈
+# 🛠️ OUTILS : Pandas, NumPy, SQLAlchemy, Scikit-learn, Seaborn, Matplotlib
+# =====================================================================================
+
+
 # ===============================          Faire des analyses statistiques (avec NumPy)        ===============
 import pandas as pd
 from sqlalchemy import create_engine
