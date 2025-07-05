@@ -1,3 +1,10 @@
+
+# =====================================================================================
+# 📘 SCRIPT : Gestion des Formations des Employés
+# 🗂️ Connexion à la base de données RH (MySQL)
+# 🛠️ Utilisation de SQLAlchemy ORM pour la création et manipulation des données
+# =====================================================================================
+
 # ======================== des bibliothèques et des modules à importer ================================
 import pandas as pd
 import matplotlib.pyplot as plt
