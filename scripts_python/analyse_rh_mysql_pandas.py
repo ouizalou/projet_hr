@@ -1,3 +1,12 @@
+
+# =====================================================================================
+# 📊 SCRIPT : Analyse des données RH - Salaires, Départements, Promotions et Embauches
+# 🗂️ Connexion à la base de données RH MySQL via SQLAlchemy
+# 📈 Extraction, traitement et visualisation des données avec Pandas, Matplotlib et Seaborn
+# 🖥️ Interface simple avec Tkinter pour afficher des messages d'information à l'utilisateur
+# 💾 Export des résultats au format CSV/Excel et sauvegarde des graphiques
+# =====================================================================================
+
 import tkinter as tk
 from tkinter import messagebox
 
