@@ -3,8 +3,6 @@
 # 📘 SCRIPT : Gestion des Formations des Employés
 # 🗂️ Connexion à la base de données RH (MySQL)
 # 🛠️ Utilisation de SQLAlchemy ORM pour la création et manipulation des données
-# 👤 Auteur : [Votre nom]
-# 📅 Date : [Date du jour]
 # =====================================================================================
 
 # ======================== des bibliothèques et des modules à importer ================================
