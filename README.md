@@ -29,4 +29,20 @@ ainsi que les indicateurs clés comme le turnover, la formation ou encore les ab
 
 # 🖼️ Schéma relationnel (Mermaid) 
 
+---
+config:
+  theme: neo
+---
+erDiagram
+    EMPLOYEES ||--o{ ABSENCES : has
+    EMPLOYEES ||--o{ SALARIES : receives
+    EMPLOYEES ||--o{ PROMOTIONS : undergoes
+    EMPLOYEES ||--o{ FORMATIONS : attends
+    EMPLOYEES ||--o{ RETIREMENTS : has
+    EMPLOYEES ||--o{ DEPENDENTS : has
+    EMPLOYEES }|..|{ MANAGERS : supervised_by
+    DEPARTMENTS ||--o{ EMPLOYEES : contains
+    DEPARTMENTS ||--|| LOCATIONS : located_at
+    CLIENTS ||--o{ HR_SERVICES : requests
+    CLIENTS ||--o{ CLAIMS_RAW : reports
 
