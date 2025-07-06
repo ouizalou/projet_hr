@@ -35,6 +35,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y mysql-client
+      - name: Afficher contenu de HR_creation.sql
+        run: cat Scripts_sql/HR_creation.sql
+
 
       - name: Créer les tables (avec debug)
         run: |
