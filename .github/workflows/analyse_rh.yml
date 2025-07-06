@@ -47,5 +47,8 @@ jobs:
       - name: Installer les dépendances Python
         run: pip install -r requirements.txt
 
+      - name: Installer tkinter (nécessaire pour le script)
+        run: sudo apt-get install -y python3-tk
+
       - name: Lancer le script Python
         run: python scripts_python/analyse_rh_mysql_pandas.py
