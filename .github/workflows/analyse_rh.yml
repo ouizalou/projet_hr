@@ -45,3 +45,12 @@ jobs:
             exit 1
           fi
 
+      - name: Vérifier les tables créées
+        run: |
+          echo "🔍 Tables présentes dans hr_sample :"
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SHOW TABLES IN hr_sample;"
+
+      - name: Vérifier la structure de la table employees
+        run: |
+          echo "📄 Structure de la table employees :"
+          mysql -h 127.0.0.1 -P 3306 -u root -proot -e "DESCRIBE hr_sample.employees;"
