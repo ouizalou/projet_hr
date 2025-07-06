@@ -193,7 +193,17 @@ CREATE TABLE employees (
 
 );
  
- 
+CREATE TABLE formations(
+	formation_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+	titre VARCHAR(100) NOT NULL,
+	organisme VARCHAR(250) NOT NULL,
+	date_begin date,
+	date_end date,
+	statut enum('en cours','terminé','abondonnée'),
+	FOREIGN KEY (employee_id) REFERENCES employees (employee_id) ON DELETE CASCADE ON UPDATE CASCADE
+	);
+
+	
 
 CREATE TABLE dependents (
 	dependent_id INT (11) AUTO_INCREMENT PRIMARY KEY,
