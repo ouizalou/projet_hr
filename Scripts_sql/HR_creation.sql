@@ -70,7 +70,6 @@ CREATE TABLE hr_services (
 
 
 -- table reclamation brute
-DROP TABLE claims_raw;
 CREATE TABLE claimss_raw (
 	claim_id INT (11) AUTO_INCREMENT PRIMARY KEY,
 	client_id INT,
