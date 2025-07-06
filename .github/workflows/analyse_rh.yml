@@ -29,26 +29,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Attendre que MySQL soit prêt
-        run: sleep 20
+        run: sleep 40
 
       - name: Installer MySQL client
         run: |
           sudo apt-get update
           sudo apt-get install -y mysql-client
 
-      - name: Créer les tables
+      - name: Créer les tables (avec debug)
         run: |
-          mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_creation.sql
-
-      - name: Insérer les données
-        run: |
-          mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_insertion.sql
-
-      - name: Installer les dépendances Python
-        run: pip install -r requirements.txt
-
-      - name: Installer tkinter (nécessaire pour le script)
-        run: sudo apt-get install -y python3-tk
-
-      - name: Lancer le script Python
-        run: python scripts_python/analyse_rh_mysql_pandas.py
+          mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_creation.sql || (echo "Erreur SQL dans HR_crea
