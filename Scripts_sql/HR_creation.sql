@@ -86,6 +86,21 @@ CREATE TABLE claimss_raw (
 );
 
 
+CREATE TABLE employees (
+	employee_id INT (11) AUTO_INCREMENT PRIMARY KEY,
+	first_name VARCHAR (20) DEFAULT NULL,
+	last_name VARCHAR (25) NOT NULL,
+	email VARCHAR (100) NOT NULL,
+	phone_number VARCHAR (20) DEFAULT NULL,
+	hire_date DATE NOT NULL,
+	job_id INT (11) NOT NULL,
+	salary DECIMAL (8, 2) NOT NULL,
+	manager_id INT (11) DEFAULT NULL,
+	department_id INT (11) DEFAULT NULL,
+	FOREIGN KEY (job_id) REFERENCES jobs (job_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (department_id) REFERENCES departments (department_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (manager_id) REFERENCES employees (employee_id)
+);
 
  
  CREATE TABLE salaries (
@@ -100,7 +115,6 @@ CREATE TABLE claimss_raw (
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 	
 );
-
 
  CREATE TABLE promotions (
 	promotion_id INT (11) AUTO_INCREMENT PRIMARY KEY,
@@ -144,7 +158,7 @@ CREATE TABLE turnover (
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 	
 );
- 
+
 CREATE TABLE absences (
 	absence_id INT (11) AUTO_INCREMENT PRIMARY KEY,
 	employee_id INT,  
@@ -160,23 +174,6 @@ CREATE TABLE absences (
 	FOREIGN KEY (approved_by) REFERENCES employees(employee_id)
 
 );
-
-CREATE TABLE employees (
-	employee_id INT (11) AUTO_INCREMENT PRIMARY KEY,
-	first_name VARCHAR (20) DEFAULT NULL,
-	last_name VARCHAR (25) NOT NULL,
-	email VARCHAR (100) NOT NULL,
-	phone_number VARCHAR (20) DEFAULT NULL,
-	hire_date DATE NOT NULL,
-	job_id INT (11) NOT NULL,
-	salary DECIMAL (8, 2) NOT NULL,
-	manager_id INT (11) DEFAULT NULL,
-	department_id INT (11) DEFAULT NULL,
-	FOREIGN KEY (job_id) REFERENCES jobs (job_id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (department_id) REFERENCES departments (department_id) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (manager_id) REFERENCES employees (employee_id)
-);
- 
  CREATE TABLE managers (
 	manager_id INT (11) AUTO_INCREMENT PRIMARY KEY,
 	first_name VARCHAR (20) DEFAULT NULL,
