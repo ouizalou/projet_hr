@@ -18,6 +18,14 @@ import seaborn as sbn
 import os
 
 
+try:
+    import tkinter as tk
+    from tkinter import messagebox
+    TKINTER_AVAILABLE = True
+except ImportError:
+    TKINTER_AVAILABLE = False
+
+
 # informations de connexion MySQL
 host='localhost'
 port='3306'
@@ -56,7 +64,10 @@ def load_sql(query,engine):
 def stats_employees(engine):
     DF_employees=load_sql("SELECT * FROM employees",engine)
     # affiche les statistiques descriptives de la colonne 'salary'
-    messagebox.showinfo("Statistiques Salaires",DF_employees['salary'].describe().to_string())
+    if TKINTER_AVAILABLE:
+        messagebox.showinfo("Statistiques Salaires",DF_employees['salary'].describe().to_string())
+    else:
+        print("Statistiques Salaires:\n", DF_employees['salary'].describe())
     # afficher les premières lignes des données
     print("\n 📋 les données de la table employees :\n ")
     print(DF_employees.head())
