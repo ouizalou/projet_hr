@@ -38,4 +38,10 @@ jobs:
 
       - name: Créer les tables (avec debug)
         run: |
-          mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_creation.sql || (echo "Erreur SQL dans HR_crea
+          if ! mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_creation.sql; then
+            echo "❌ Erreur SQL dans HR_creation.sql"
+            echo "🔍 Contenu du script pour debug :"
+            cat Scripts_sql/HR_creation.sql
+            exit 1
+          fi
+
