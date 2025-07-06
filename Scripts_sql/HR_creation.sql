@@ -53,9 +53,6 @@ CREATE TABLE clients (
 );
  
  
- 
- 
- 
 CREATE TABLE hr_services (
 	service_id INT (11) AUTO_INCREMENT PRIMARY KEY,
     client_id INT,
