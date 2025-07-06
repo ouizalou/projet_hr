@@ -1,26 +1,51 @@
-name: Analyse RH MySQL
+name: Analyse RH avec MySQL
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  run-analysis:
+  analyse-rh:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: hr_sample
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
-      - name: Checkout du code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Installer Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
+      - name: Attendre que MySQL soit prêt
+        run: sleep 20
 
-      - name: Installer les dépendances
+      - name: Installer MySQL client
         run: |
-          pip install -r requirements.txt
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
 
-      - name: Exécuter le script d'analyse RH
+      - name: Créer les tables
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_creation.sql
+
+      - name: Insérer les données
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_insertion.sql
+
+      - name: Installer les dépendances Python
+        run: pip install -r requirements.txt
+
+      - name: Lancer le script Python
         run: python scripts_python/analyse_rh_mysql_pandas.py
