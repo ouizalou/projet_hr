@@ -1,28 +1,26 @@
-name: Analyse RH Automatisée
+name: Analyse RH MySQL
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  analyse-rh:
+  run-analysis:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🔄 Cloner le dépôt
-      uses: actions/checkout@v3
+      - name: Checkout du code
+        uses: actions/checkout@v3
 
-    - name: 🐍 Installer Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
+      - name: Installer Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-    - name: 📦 Installer les dépendances
-      run: |
-        pip install --upgrade pip
-        pip install pandas mysql-connector-python matplotlib seaborn
+      - name: Installer les dépendances
+        run: |
+          pip install -r requirements.txt
 
-    - name: ▶️ Exécuter le script RH
-      run: python analyse_rh_mysql_pandas.py
+      - name: Exécuter le script d'analyse RH
+        run: python scripts_python/analyse_rh_mysql_pandas.py
