@@ -37,8 +37,7 @@ jobs:
           sudo apt-get install -y mysql-client
       - name: Afficher contenu de HR_creation.sql
         run: cat Scripts_sql/HR_creation.sql
-
-
+    
       - name: Créer les tables (avec debug)
         run: |
           if ! mysql -h 127.0.0.1 -P 3306 -u root -proot hr_sample < Scripts_sql/HR_creation.sql; then
@@ -52,6 +51,17 @@ jobs:
         run: |
           echo "🔍 Tables présentes dans hr_sample :"
           mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SHOW TABLES IN hr_sample;"
+      - name: Afficher toutes les bases
+        run: |
+              mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SHOW DATABASES;"
+
+      - name: Afficher toutes les tables dans hr_sample
+        run: |
+              mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SHOW TABLES IN hr_sample;"
+
+      - name: Décrire la table employees
+        run: |
+              mysql -h 127.0.0.1 -P 3306 -u root -proot -e "DESCRIBE hr_sample.employees;"
 
       - name: Vérifier la structure de la table employees
         run: |
