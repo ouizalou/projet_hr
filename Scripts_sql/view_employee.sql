@@ -1,7 +1,7 @@
 
 use hr_sample;
--- une vue est une requete pres-enregistrer
--- creation dune vue pour afficher les employees ayant quitter lentreprise l'annee derniere
+-- ✅ Vue enregistrée qui affiche le nombre de départs d’employés par année
+-- Utile pour mesurer le taux de rotation annuel
 
 create or replace view annual_turnover as
 select
@@ -18,8 +18,9 @@ order by
 
 select * from annual_turnover;
 
--- afficher les employees a ete promus au cours des 12 derniers mois
 
+-- ✅ Vue qui affiche les employés promus au cours des 12 derniers mois
+-- Permet de suivre les mobilités internes récentes
 
 create or replace view recent_promotion as
 select
@@ -32,7 +33,9 @@ where
 select * from recent_promotion;
 
 
--- afficher nombre d'absence pour chque employee
+-- ✅ Vue qui résume les absences par employé
+-- Affiche le nombre total d'absences et le total en jours
+
 create or replace view total_absence as
 select
     a.employee_id, e.first_name,e.last_name,count(a.absence_id) as total_absence, sum(a.duration) as _total_day_absence
@@ -45,7 +48,8 @@ group by
 select * from total_absence;
 
 
--- afficher les infos des departs des employes de l'entreprise
+-- ✅ Vue qui fournit un résumé complet des départs d’employés
+-- Affiche les raisons de départ et l'état administratif
 
 create or replace view turnover_summary as
 select
