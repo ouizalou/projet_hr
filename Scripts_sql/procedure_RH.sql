@@ -1,4 +1,3 @@
-delete from absences where id=202;
 use sample_rh;
 
 /*
@@ -7,8 +6,6 @@ use sample_rh;
  * Utilité : Permet de créer un dossier RH dès le recrutement
  */
 
-
--- procedure pour ajouter des employees 
 DELIMITER //
 
 create procedure addemployees(
