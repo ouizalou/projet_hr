@@ -43,7 +43,7 @@ Cette base de données modélise de manière complète les processus liés aux R
 
 ## 🖼️ Schéma relationnel
 
-![Diagramme de la BDD RH](diagramme/hr_sample_diagramme.png)
+diagramme/hr_sample_diagramme.png
 
 
 ## 📂 Arborescence du dépôt
