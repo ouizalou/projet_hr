@@ -5,24 +5,26 @@ Cette base de données modélise de manière complète les processus liés aux R
 
 ## 🗂️ Tables principales
 
-| Table                   | Description                                 |
-|------------------------|---------------------------------------------|
-| `employees`            | Données personnelles et professionnelles des employés |
-| `jobs`                 | Détails des postes, salaires min/max        |
-| `departments`          | Structure organisationnelle interne         |
-| `locations`            | Localisation des départements               |
-| `managers`             | Informations sur les superviseurs           |
-| `salaries`             | Historique de paie : brut, net, taxes       |
-| `absences`             | Historique des absences (type, durée, motif)|
-| `promotions`           | Changements de poste et d’évolution salariale |
-| `formations`           | Suivi des formations, dates et organismes   |
-| `retirements`          | Départs à la retraite, âge, pension         |
-| `turnover`             | Départs d’employés, feedback, raisons       |
-| `dependents`           | Ayants droit liés à un employé              |
-| `clients`              | Entreprises clientes dans un contexte de prestations RH |
-| `hr_services`          | Services RH délivrés aux clients            |
-| `claims_raw`           | Réclamations ou incidents RH signalés       |
-| `regions`, `countries` | Hiérarchie géographique                     |
+| Table                   | Description                                                               |
+|------------------------|---------------------------------------------------------------------------|
+| `employes`             | Données personnelles et professionnelles des employés                     |
+| `postes`               | Détails des postes, salaires min/max                                      |
+| `departements`         | Répartition des employés par département                                  |
+| `emplacements`         | Adresse, ville et code postal des départements                            |
+| `regions`              | Regroupement géographique des emplacements                                |
+| `pays`                 | Pays associés aux régions                                                 |
+| `managers`             | Informations sur les responsables hiérarchiques                           |
+| `salaries`             | Historique des salaires (net, brut, prime)                                |
+| `absences`             | Historique des absences (type, dates, motif)                              |
+| `promotions`           | Changements de poste et d’évolution salariale                             |
+| `formations`           | Suivi des formations (titre, prestataire, durée)                          |
+| `retraites`            | Données de retraite : date, âge, pension                                  |
+| `rotation`             | Données de départs (date, raison, commentaire)                            |
+| `dependants`           | Ayants droit (prénom, nom, lien, date naissance)                          |
+| `reclamations_brutes`  | Réclamations RH soumises par les employés                                 |
+| `clients`              | Clients de l’organisation (nom entreprise, contact, date de création)     |
+| `services_rh`          | Prestations RH fournies aux clients                                       |
+
 
 ## 🎯 Besoins Métiers Couvert par la BDD RH
 
