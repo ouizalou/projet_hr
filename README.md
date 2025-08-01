@@ -49,13 +49,31 @@ https://github.com/ouizalou/projet_hr/blob/9f9f0bc6d47440279889ef581d468e90ba892
 ## 📂 Arborescence du dépôt
 
 ```
-hr_project/
+projet_hr/
 │
-├── script_python/           # Scripts Python pour l'analyse des données RH
-├── diagramme/               # Schéma relationnel de la base de données
-│   └── hr_sample_diagramme.png
-├── README.md                # Présentation du projet RH
-└── ...
+├── Scripts_sql/ # Scripts SQL pour la base RH
+│ ├── HR_insertion.sql # Insertion des données
+│ ├── Triggers_promotions_formations.sql # Triggers sur promotions & formations
+│ ├── event_employee.sql # Événement sur employés
+│ ├── event_retraite.sql # Événement sur retraites
+│ ├── join_inner_select.sql # Requêtes avancées
+│ ├── procedure_RH.sql # Procédures stockées
+│ ├── query_select.sql # Requêtes classiques
+│ ├── rh_creation.sql # Création des tables
+│ └── view_employee.sql # Vues SQL
+│
+├── scripts_python/ # Scripts Python pour l’analyse RH
+│ ├── analyse_rh_mysql_pandas_tkinter.py # Analyse RH avec MySQL et Pandas
+│ ├── dashboard_tkinter.py # dashboard Analyse RH avec MySQL et Pandas
+│ ├── gestion_congés_employes.py # Gestion des congés des employés
+│ ├── gestion_formations_employes.py # Gestion des formations RH
+│ └── prediction_salaires_employes.py # Prédiction des salaires
+│
+├── diagramme/ # Diagramme relationnel de la base RH
+│ └── diagram_rh.png # Diagramme de la BDD HR_SAMPLE
+│
+├── README.md # Présentation du projet
+└── 
 ```
 
 ## 📬 Contact
