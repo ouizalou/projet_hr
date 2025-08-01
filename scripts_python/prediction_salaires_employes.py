@@ -11,6 +11,18 @@
 # =====================================================================================
 
 
+# =====================================================================================
+# 📊 SCRIPT : Analyse et Prédiction des Salaires des Employés
+# 🎯 OBJECTIF : 
+#     - Se connecter à la base de données RH MySQL 🗄️
+#     - Extraire et analyser les données des employés 👥
+#     - Calculer des statistiques sur les salaires 💰 et l'ancienneté ⏳
+#     - Utiliser des modèles de machine learning 🤖 (régression linéaire, RandomForest, SVM)
+#       pour prédire les salaires et classifier les hauts salaires 📈
+# 🛠️ OUTILS : Pandas, NumPy, SQLAlchemy, Scikit-learn, Seaborn, Matplotlib
+# =====================================================================================
+
+
 # ===============================          Faire des analyses statistiques (avec NumPy)        ===============
 import pandas as pd
 from sqlalchemy import create_engine
@@ -50,16 +62,17 @@ try:
     print("\n ✅  la connexion est bien réussie a la base de données")
 
     # requete sql avec jointures :employe+ jobs+ departement
-    query="""select e.employee_id,
-	e.hire_date,
-	e.salary,
-	j.job_title,
-	j.min_salary,
-	j.max_salary,
-	d.department_name
-	from employees e
-	join jobs j on e.job_id=j.job_id
-	join departments d on e.department_id=d.department_id"""
+    query="""select e.id,
+	e.date_embauche,
+	s.salaire_net,
+	p.intitule,
+	p.salaire_min,
+	p.salaire_max,
+	d.nom
+	from employes e
+	join postes p on e.poste_id=p.id
+	join departements d on e.departement_id=d.id
+    join salaires s on s.employe_id=e.id"""
     
 
     # lecture des données de la table employées
@@ -67,14 +80,14 @@ try:
     print(DF_employees.head())
 
     # convertir les hire_date en format datetime
-    DF_employees['hire_date']=pd.to_datetime(DF_employees['hire_date'])
+    DF_employees['date_embauche']=pd.to_datetime(DF_employees['date_embauche'])
     # trie les données de ala table employées selon les date d'embauche 
-    DF_employees=DF_employees.sort_values(by='hire_date')
+    DF_employees=DF_employees.sort_values(by='date_embauche')
     print(DF_employees.head())
 
 # =====================         Statistiques et calculs avec NumPy         ========================================
 
-    salaires=DF_employees['salary'].values
+    salaires=DF_employees['salaire_net'].values
     print(" Salaire moyen:",np.mean(salaires))
     print("Salaire médian:",np.median(salaires))
     print("Ecart-type",np.std(salaires))
@@ -83,7 +96,7 @@ try:
 
     # ======================      prédire les salaires selon les années d'anciénnté =====================
     #créer la variable anciennté
-    DF_employees['anciennte']=(pd.to_datetime('today') - DF_employees['hire_date']).dt.days / 365
+    DF_employees['anciennte']=(pd.to_datetime('today') - DF_employees['date_embauche']).dt.days / 365
 
     # suppression des lignes manquantes
     DF_employees.dropna(inplace=True)
@@ -93,7 +106,7 @@ try:
     # x : est la caractéristique d’entrée ==> ancienté
     x=DF_employees[['anciennte']]
     # y: la valeur a prédire ==> salaire
-    y=DF_employees['salary']
+    y=DF_employees['salaire_net']
 
     # diviser les données en train(80% )/ test (20%)
     #random_state=42 : pour garantir des résultats reproductibles.
@@ -110,7 +123,7 @@ try:
     print("score R2:",modele.score(x_test,y_test))
 
     # tracer le graphe de relation entre les salaires et l'anciennté
-    sns.scatterplot(data=DF_employees, x='anciennte',y='salary')
+    sns.scatterplot(data=DF_employees, x='anciennte',y='salaire_net')
     plt.title("Anciennté vs les salaires")
     plt.show()
     
@@ -119,15 +132,15 @@ try:
     
     print("\n prediction si un nouvel employe peut avoir un salaire haut :\n")
     # creation des variable cible
-    DF_employees['haut_salaire']=(DF_employees['salary']>9000).astype(int)
+    DF_employees['haut_salaire']=(DF_employees['salaire_net']>9000).astype(int)
 
     # convertir les colonnes contenant de texte en categories puis en valeurs numerique avec cat.codes
-    DF_employees['job_title']=DF_employees['job_title'].astype('category')
-    DF_employees['job_title']=DF_employees['job_title'].cat.codes
-    DF_employees['department_name']=DF_employees['department_name'].astype('category').cat.codes
+    DF_employees['intitule']=DF_employees['intitule'].astype('category')
+    DF_employees['intitule']=DF_employees['job_title'].cat.codes
+    DF_employees['nom']=DF_employees['nom'].astype('category').cat.codes
 
     # definition des variables d'entrees / cibles
-    x=DF_employees[['anciennte','min_salary','max_salary','job_title','department_name']]
+    x=DF_employees[['anciennte','salaire_min','salaire_max','intitule','nom']]
     y=DF_employees['haut_salaire']
 
     # separer les donees en train/test
@@ -152,7 +165,7 @@ try:
     plt.show()
     # ======================      SVM : prédire haut salaire         ======================================
     # les variables d'entree /cible
-    x=DF_employees[['anciennte','min_salary','max_salary','job_title','department_name']]
+    x=DF_employees[['anciennte','salaire_min','salaire_max','intitule','nom']]
     y=DF_employees[['haut_salaire']]
 
     # separer les variables train/test
@@ -190,4 +203,6 @@ DF_employees.to_csv('employees_with_predictions.csv', index=False)
 with open("modele_haut_salaire.pkl", "wb") as f:
     joblib.dump(modele_classif, f, protocol=4)
 print("✅ Modèle RandomForest sauvegardé dans 'modele_haut_salaire.pkl'")
+
+
 
