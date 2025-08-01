@@ -82,4 +82,3 @@ projet_hr/
 
 ---
 
-🧠 *Projet pédagogique de modélisation RH — librement réutilisable pour des cas pratiques d’analyse ou d’audit RH.*
