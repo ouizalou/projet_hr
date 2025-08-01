@@ -28,20 +28,23 @@ Cette base de données modélise de manière complète les processus liés aux R
 
 ## 🎯 Besoins Métiers Couvert par la BDD RH
 
-| Besoin RH                      | Objectif Métiers RH                                                       |
-|-------------------------------|--------------------------------------------------------------------------|
-| 📊 Pilotage RH                | Suivi des effectifs, âge moyen, ancienneté, pyramide des âges            |
-| 📈 Analyse du Turnover        | Identifier les causes de départs, calcul du taux de rotation             |
-| 💸 Suivi de la masse salariale| Contrôle des coûts RH, prévisions budgétaires                            |
-| 📚 Plan de formation          | Suivi des formations réalisées, conformité avec les obligations légales  |
-| 🔁 Gestion de carrière        | Historique des promotions, accompagnement des évolutions internes        |
-| 👪 Données sociales           | Suivi des ayants droit, conformité avec les obligations sociales         |
-| 📍 Répartition géographique   | Localisation des effectifs, multi-sites, reporting local/national        |
-| 🧾 Archivage et conformité    | Conformité RGPD, traçabilité RH                                           |
+| Besoin RH                         | Objectif Métiers RH                                                     |
+|---------------------------------- |-------------------------------------------------------------------------|
+| 📊 Pilotage RH                   | Suivi des effectifs, âge moyen, ancienneté, pyramide des âges            |
+| 📈 Analyse du Turnover           | Identifier les causes de départs, calcul du taux de rotation             |
+| 💸 Suivi de la masse salariale   | Contrôle des coûts RH, prévisions budgétaires                            |
+| 📚 Plan de formation             | Suivi des formations réalisées, conformité avec les obligations légales  |
+| 🔁 Gestion de carrière           | Historique des promotions, accompagnement des évolutions internes        |
+| 👪 Suivi  social                 | Suivi des ayants droit, conformité avec les obligations sociales         |
+| 📍 Répartition géographique       | Localisation des effectifs, multi-sites, reporting local/national        |
+| 🧾 Archivage et conformité       | Conformité RGPD, traçabilité RH                                          |
+| 🧰 Prestations RH aux clients	   | Historique des services RH délivrés à chaque client                      |
+
 
 ## 🖼️ Schéma relationnel
 
 ![Diagramme de la BDD RH](diagramme/hr_sample_diagramme.png)
+
 
 ## 📂 Arborescence du dépôt
 
