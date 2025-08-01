@@ -11,18 +11,6 @@
 # =====================================================================================
 
 
-# =====================================================================================
-# 📊 SCRIPT : Analyse et Prédiction des Salaires des Employés
-# 🎯 OBJECTIF : 
-#     - Se connecter à la base de données RH MySQL 🗄️
-#     - Extraire et analyser les données des employés 👥
-#     - Calculer des statistiques sur les salaires 💰 et l'ancienneté ⏳
-#     - Utiliser des modèles de machine learning 🤖 (régression linéaire, RandomForest, SVM)
-#       pour prédire les salaires et classifier les hauts salaires 📈
-# 🛠️ OUTILS : Pandas, NumPy, SQLAlchemy, Scikit-learn, Seaborn, Matplotlib
-# =====================================================================================
-
-
 # ===============================          Faire des analyses statistiques (avec NumPy)        ===============
 import pandas as pd
 from sqlalchemy import create_engine
@@ -57,7 +45,7 @@ import joblib
 # connexion a la base de données Mysql
 
 try:
-    engine=create_engine(f'mysql+pymysql://root:root@localhost:3306/hr_sample')
+    engine=create_engine(f'mysql+pymysql://root:root@localhost:3306/sample_rh')
     connection=engine.connect()
     print("\n ✅  la connexion est bien réussie a la base de données")
 
@@ -132,11 +120,11 @@ try:
     
     print("\n prediction si un nouvel employe peut avoir un salaire haut :\n")
     # creation des variable cible
-    DF_employees['haut_salaire']=(DF_employees['salaire_net']>9000).astype(int)
+    DF_employees['haut_salaire']=(DF_employees['salaire_net']> 2000).astype(int)
 
     # convertir les colonnes contenant de texte en categories puis en valeurs numerique avec cat.codes
     DF_employees['intitule']=DF_employees['intitule'].astype('category')
-    DF_employees['intitule']=DF_employees['job_title'].cat.codes
+    DF_employees['intitule']=DF_employees['intitule'].cat.codes
     DF_employees['nom']=DF_employees['nom'].astype('category').cat.codes
 
     # definition des variables d'entrees / cibles
@@ -166,10 +154,11 @@ try:
     # ======================      SVM : prédire haut salaire         ======================================
     # les variables d'entree /cible
     x=DF_employees[['anciennte','salaire_min','salaire_max','intitule','nom']]
-    y=DF_employees[['haut_salaire']]
+    y=DF_employees[['haut_salaire']].values.ravel()
 
     # separer les variables train/test
-    x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2, random_state=42)
+    x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2, random_state=42,stratify=y)
+    print("Classes dans y_train:", np.unique(y_train, return_counts=True))
 
     # creation de modele svm avec un noyau RBF par defaut
     svm_modele=SVC(kernel='rbf',C=1,gamma='scale')
@@ -203,6 +192,4 @@ DF_employees.to_csv('employees_with_predictions.csv', index=False)
 with open("modele_haut_salaire.pkl", "wb") as f:
     joblib.dump(modele_classif, f, protocol=4)
 print("✅ Modèle RandomForest sauvegardé dans 'modele_haut_salaire.pkl'")
-
-
 
