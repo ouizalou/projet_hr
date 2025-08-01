@@ -91,7 +91,7 @@ def graphe_departement(engine):
     plt.ylabel("Département")
     plt.tight_layout()
     plt.savefig(os.path.join(GRAPH_DIR,"Nombre_d'employes_par_departement.png"))
-    #plt.show()
+    plt.show()
 
 graphe_departement(engine)
 # ============= SALAIRE MOYEN PAR POSTE ================
@@ -115,7 +115,7 @@ def graphe_salaire(engine):
     plt.ylabel("Poste")
     plt.tight_layout()
     plt.savefig(os.path.join(GRAPH_DIR,"Salaire_moyen_par_poste.png"))
-    #plt.show()
+    plt.show()
 
 graphe_salaire(engine)
 # =========== EVOLUTION SALAIRE APRES PROMOTION =============
@@ -139,7 +139,7 @@ def graphe_promotion(engine):
     plt.ylabel("Employé")
     plt.tight_layout()
     plt.savefig(os.path.join(GRAPH_DIR,"Top_Hausse_de_salaire_après_promotion.png"))
-    #plt.show()
+    plt.show()
 
 graphe_promotion(engine)
 # ============== EMPLOYÉS EMBAUCHÉS PAR ANNÉE =================
@@ -171,7 +171,7 @@ def graphe_embauche(engine,annee=None):
     plt.ylabel(" Nombre d'employées ")
     plt.grid(True)
     plt.tight_layout()
-    #plt.show()
+    plt.show()
     plt.savefig(os.path.join(GRAPH_DIR,"Nombre_employees_embaucher_par_annee.png"))
 
 graphe_embauche(engine,annee=None)
@@ -208,7 +208,7 @@ def get_nbr_embauches(engine, annee):
     df_nombre_emp = load_sql(query, engine)
     return int(df_nombre_emp["nombre_employee"].iloc[0]) if not df_nombre_emp.empty else 0
 
-get_nbr_embauches(engine,2020)
+get_nbr_embauches(engine,1994)
 def graphe_embauche_dep(engine, departement, annee=None):
     query = f"""
     SELECT YEAR(e.date_embauche) AS annee_embauche, d.nom as nom_departement, COUNT(*) AS nombre_employee
@@ -239,7 +239,7 @@ def graphe_embauche_dep(engine, departement, annee=None):
     plt.grid(True)
     plt.tight_layout()
 
-    #plt.show()
+    plt.show()
     plt.savefig(os.path.join(GRAPH_DIR, f"embauche_{departement}_{annee if annee else 'all'}.png"))
 graphe_embauche_dep(engine,"Seize visionary web services" ,annee=None)
 def get_departements(engine):
@@ -286,84 +286,3 @@ get_employes_par_departement(engine,"Seize visionary web services")
 
 
 
-
-
-class AppRH(tk.Tk):
-    def __init__(self, engine):
-        super().__init__()
-        self.engine = engine
-        self.title("Dashboard RH - Analyse")
-        self.geometry("500x420")
-        self.resizable(False, False)
-
-        tk.Label(self, text="Choisissez une analyse à exécuter :", font=("Arial", 14)).pack(pady=10)
-
-        btns = [
-            ("📊 Statistiques salaires", self.stats_salaires),
-            ("📂 Graphique employés par département", self.graphe_dept),
-            ("💰 Graphique salaire moyen par poste", self.graphe_salaire),
-            ("🔄 Graphique évolution après promotion", self.graphe_promo),
-            ("📆 Graphique embauches par année", self.graphe_embauche),
-            ("💾 Export CSV/XLSX", self.export_files),
-        ]
-
-        for text, cmd in btns:
-            tk.Button(self, text=text, command=cmd, width=40).pack(pady=5)
-
-        tk.Button(self, text="Quitter", command=self.destroy, fg="red").pack(side='bottom', pady=10)
-
-    def stats_salaires(self):
-        try:
-            stats_employes_salaire(self.engine)
-        except Exception as e:
-            messagebox.showerror("Erreur", str(e))
-
-    def graphe_dept(self):
-        try:
-            graphe_departement(self.engine)
-            self.open_graph("Nombre_employes_par_departement.png")
-        except Exception as e:
-            messagebox.showerror("Erreur", str(e))
-
-    def graphe_salaire(self):
-        try:
-            graphe_salaire(self.engine)
-            self.open_graph("Salaire_moyen_par_poste.png")
-        except Exception as e:
-            messagebox.showerror("Erreur", str(e))
-
-    def graphe_promo(self):
-        try:
-            graphe_promotion(self.engine)
-            self.open_graph("Top_Hausse_de_salaire_apres_promotion.png")
-        except Exception as e:
-            messagebox.showerror("Erreur", str(e))
-
-    def graphe_embauche(self):
-        try:
-            graphe_embauche(self.engine)
-            self.open_graph("Nombre_employes_embauches_par_annee.png")
-        except Exception as e:
-            messagebox.showerror("Erreur", str(e))
-
-    def export_files(self):
-        try:
-            export_fichier(self.engine)
-        except Exception as e:
-            messagebox.showerror("Erreur", str(e))
-
-    def open_graph(self, filename):
-        path = os.path.join(GRAPH_DIR, filename)
-        if os.path.exists(path):
-            if sys.platform == "win32":
-                os.startfile(path)
-            elif sys.platform == "darwin":
-                subprocess.call(["open", path])
-            else:
-                subprocess.call(["xdg-open", path])
-        else:
-            messagebox.showwarning("Fichier manquant", f"Le fichier {filename} est introuvable.")
-
-if __name__ == "__main__":
-    app = AppRH(engine)
-    app.mainloop()
