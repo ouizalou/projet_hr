@@ -43,8 +43,7 @@ Cette base de données modélise de manière complète les processus liés aux R
 
 ## 🖼️ Schéma relationnel
 
-https://github.com/ouizalou/projet_hr/blob/9f9f0bc6d47440279889ef581d468e90ba892fdb/diagramme/hr_sample_diagramme.png
-
+https://github.com/ouizalou/projet_hr/blob/main/diagramme/sample_rh.png?raw=true
 
 ## 📂 Arborescence du dépôt
 
